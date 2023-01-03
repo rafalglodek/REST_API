@@ -2,7 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.7.3'
 	id 'io.spring.dependency-management' version '1.0.13.RELEASE'
 	id 'java'
-	id 'war'
+	//id 'war'
 }
 
 group = 'com.crud'
@@ -34,9 +34,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
 	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-tomcat
-	  providedRuntime group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: '2.7.4'
+//	  providedRuntime group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: '2.7.4'
 	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-tomcat
-	//implementation group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: '2.7.4'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: '2.7.4'
 
 	// https://mvnrepository.com/artifact/org.postgresql/postgresql
 	runtimeOnly group: 'org.postgresql', name: 'postgresql', version: '42.5.0'
@@ -47,11 +47,17 @@ dependencies {
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
 	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 
+    // https://mvnrepository.com/artifact/io.springfox/springfox-swagger2
+	//implementation group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0'
+	implementation 'io.springfox:springfox-swagger2:2.9.2'
+	implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+
+
 
 }
-bootWar {
-	archiveName 'crud.war'
-}
+//bootWar {
+//	archiveName 'crud.war'
+//}
 
 tasks.named('test') {
 	useJUnitPlatform()
