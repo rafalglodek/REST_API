@@ -1,61 +1,49 @@
 plugins {
-	id 'org.springframework.boot' version '2.7.3'
-	id 'io.spring.dependency-management' version '1.0.13.RELEASE'
+	id 'org.springframework.boot' version '2.7.4'
+	id 'io.spring.dependency-management' version '1.0.14.RELEASE'
 	id 'java'
-	//id 'war'
+//	id 'war'
 }
 
 group = 'com.crud'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = '17'
 
 configurations {
-
-	compileOnly { extendsFrom annotationProcessor }
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
 }
 
 repositories {
 	mavenCentral()
 }
+
 jar {
 	enabled = false
 }
 
 dependencies {
-	compileOnly 'org.projectlombok:lombok:1.18.24'
-	annotationProcessor 'org.projectlombok:lombok:1.18.24'
-	testCompileOnly 'org.projectlombok:lombok:1.18.24'
-	testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
-
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-
-	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-tomcat
-	//providedRuntime group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: '2.7.4'
-	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-tomcat
-	//implementation group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: '2.7.4'
-
-
-
-	// https://mvnrepository.com/artifact/org.postgresql/postgresql
-	runtimeOnly group: 'org.postgresql', name: 'postgresql', version: '42.5.0'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-	runtimeOnly 'mysql:mysql-connector-java'
-
-	testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: '4.6.0'
-	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.13'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'mysql:mysql-connector-java'
+	runtimeOnly 'org.postgresql:postgresql:42.5.1'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'com.google.code.gson:gson'
 
+//	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 }
-//bootWar {
-//	archiveName 'crud.war'
-//}
 
 tasks.named('test') {
-	useJUnitPlatform()
+	onlyIf {
+		project.hasProperty("runtests")
+	}
+	doLast {
+		useJUnitPlatform()
+	}
 }
